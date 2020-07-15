@@ -1,6 +1,6 @@
 ![Docmosis](https://raw.githubusercontent.com/mikehhodgson/tornado/master/images/docmosis.png)
 
-# Docmosis Tornado 2.8.2 (Build:9203)
+# Docmosis Tornado 2.7.3 (Build:8366)
 
 Based on the original Docmosis Tornado (BETA) container build from [Mike Hodgson](https://github.com/mikehhodgson/tornado)
 with some small changes.
@@ -11,6 +11,7 @@ with some small changes.
 * Added default JAVA_TOOL_OPTIONS for a semi-sane container build
 * Moved some variables to build arguments for easier CI/CD operations
 * Added env variable LOG4J_LOGLEVEL for runtime choice (default is INFO)
+* Sources HOMEDIR/env.inc prior to running Docmosis
 
 ## Instructions
 
