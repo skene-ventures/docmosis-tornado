@@ -3,8 +3,8 @@ ARG imageRepo=alpine
 
 FROM ${imageRepo}:${fromTag}
 
-ARG DOCMOSIS_VERSION=2.8.2_9203
-ARG DOCMOSIS_SHA256SUM=0b618a171eb7dd42779d1ccc3bdc5acebb6a04675c6403e79b7f0f6bc4bd51fb
+ARG DOCMOSIS_VERSION=2.7.3_8366
+ARG DOCMOSIS_SHA256SUM=522aa7cfc5323ba0316589061ab21462b53252337da8dd69ac52ee4f5a6a40cb
 ARG JAVA_VERSION=8
 
 RUN apk add --no-cache \
@@ -37,9 +37,11 @@ RUN printf '%s\n' \
     "log4j.appender.A1.layout.ConversionPattern=%d{DATE} [%t] %-5p %c{1} - %m%n" \
     > /home/docmosis/log4j.properties \
     && printf '%s\n' \
+    "if [ -f env.inc ]; then . env.inc; fi" \
     "sed -i \"s/LOG4J_LOGLEVEL/\${LOG4J_LOGLEVEL}/1\" /home/docmosis/log4j.properties" \
     "java -Ddocmosis.tornado.render.useUrl=\${DOCMOSIS_RENDER_USEURL} -jar docmosisTornado.war" \
-    > /home/docmosis/run.sh
+    > /home/docmosis/run.sh \
+    && chown docmosis:docmosis /home/docmosis/run.sh
 
 USER docmosis
 RUN mkdir /home/docmosis/templates /home/docmosis/working
@@ -51,7 +53,7 @@ ENV DOCMOSIS_TEMPLATESDIR=templates \
     LOG4J_LOGLEVEL=INFO \
     JAVA_TOOL_OPTIONS="-XX:InitialRAMPercentage=20.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=10.0 -XX:+UseParallelOldGC -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xms128M"
 
-ARG IMAGE_NAME=skeneventures/docmosis-tornado:latest
+ARG IMAGE_NAME=skeneventures/docmosis-tornado:${DOCMOSIS_VERSION}
 
 LABEL maintainer="Martyn Skene Ashworth <martyn@skven.io>" \
     readme.md="https://github.com/skene-ventures/docmosis-tornado/blob/master/README.md" \
