@@ -1,6 +1,6 @@
 ![Docmosis](https://raw.githubusercontent.com/mikehhodgson/tornado/master/images/docmosis.png)
 
-# Docmosis Tornado 2.7.3 (Build:8366)
+# Docmosis Tornado 2.8.2 (Build:9203)
 
 Based on the original Docmosis Tornado (BETA) container build from [Mike Hodgson](https://github.com/mikehhodgson/tornado)
 with some small changes.
